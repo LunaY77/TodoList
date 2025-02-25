@@ -41,7 +41,7 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
     public void delete(Long id, Long uid) {
         lambdaUpdate()
                 .eq(Task::getId, id)
-                .eq(Task::getUser_id, uid)
+                .eq(Task::getUserId, uid)
                 .remove();
     }
 
@@ -51,7 +51,7 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
 
     public List<Task> getByUserId(Long uid) {
         return lambdaQuery()
-                .eq(Task::getUser_id, uid)
+                .eq(Task::getUserId, uid)
                 .list();
     }
 }

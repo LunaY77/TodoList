@@ -2,7 +2,6 @@ package com.iflove.todolist.dao;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflove.todolist.domain.entity.Category;
-import com.iflove.todolist.domain.entity.Category;
 import com.iflove.todolist.mapper.CategoryMapper;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class CategoryDao extends ServiceImpl<CategoryMapper, Category> {
     public void create(@NotNull List<String> categoryNameList, Long uid) {
         baseMapper.insert(categoryNameList
                 .stream()
-                .map(name -> Category.builder().user_id(uid).name(name).build())
+                .map(name -> Category.builder().userId(uid).name(name).build())
                 .collect(Collectors.toList())
         );
     }
@@ -39,7 +38,7 @@ public class CategoryDao extends ServiceImpl<CategoryMapper, Category> {
      */
     public List<Category> queryByNamesAndId(@NotNull List<String> categoryNameList, Long uid) {
         return lambdaQuery()
-                .eq(Category::getUser_id, uid)
+                .eq(Category::getUserId, uid)
                 .in(Category::getName, categoryNameList)
                 .list();
     }
@@ -51,7 +50,7 @@ public class CategoryDao extends ServiceImpl<CategoryMapper, Category> {
      */
     public void delete(List<String> categoryNameList, Long uid) {
         lambdaUpdate()
-                .eq(Category::getUser_id, uid)
+                .eq(Category::getUserId, uid)
                 .in(Category::getName, categoryNameList)
                 .remove();
     }

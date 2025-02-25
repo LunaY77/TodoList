@@ -28,10 +28,16 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户昵称
+     * 用户名
      */
     @TableField("name")
     private String name;
+
+    /**
+     * 用户昵称
+     */
+    @TableField("nick_name")
+    private String nickName;
 
     /**
      * 用户密码

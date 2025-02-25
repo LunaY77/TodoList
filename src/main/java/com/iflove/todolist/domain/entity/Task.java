@@ -30,7 +30,7 @@ public class Task implements Serializable {
      * 用户id，关联用户表
      */
     @TableField(value = "user_id")
-    private Long user_id;
+    private Long userId;
 
     /**
      * 任务标题
@@ -60,25 +60,25 @@ public class Task implements Serializable {
      * 任务截止日期
      */
     @TableField(value = "due_date")
-    private Date due_date;
+    private Date dueDate;
 
     /**
      * 任务创建时间
      */
     @TableField(value = "create_time")
-    private Date create_time;
+    private Date createTime;
 
     /**
      * 任务修改时间
      */
     @TableField(value = "update_time")
-    private Date update_time;
+    private Date updateTime;
 
     /**
      * 任务所属分类ID
      */
     @TableField(value = "category_id")
-    private Long category_id;
+    private Long categoryId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -16,8 +16,8 @@ import org.hibernate.validator.constraints.Length;
 public class UserInfoModifyReq {
     @Pattern(regexp = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$", message = "用户名只能包含字母、数字或汉字")
     @Length(min = 1, max = 10, message = "用户名长度应在1到10之间")
-    @Schema(description = "用户名")
-    private String username;
+    @Schema(description = "用户昵称")
+    private String nickName;
 
     @Schema(description = "性别")
     @Min(value = 1, message = "性别只能为1或2")

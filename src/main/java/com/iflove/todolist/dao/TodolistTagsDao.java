@@ -31,7 +31,7 @@ public class TodolistTagsDao extends ServiceImpl<TodolistTagsMapper, TodolistTag
      */
     public void deleteRelations(@NotNull Long id) {
         lambdaUpdate()
-                .eq(TodolistTags::getTask_id, id)
+                .eq(TodolistTags::getTaskId, id)
                 .remove();
     }
 }

@@ -1,7 +1,6 @@
 package com.iflove.todolist.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 
@@ -22,13 +21,13 @@ public class TodolistTags implements Serializable {
      * 任务ID
      */
     @TableField(value = "task_id")
-    private Long task_id;
+    private Long taskId;
 
     /**
      * 标签ID
      */
     @TableField(value = "tag_id")
-    private Long tag_id;
+    private Long tagId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

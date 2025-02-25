@@ -1,6 +1,7 @@
 package com.iflove.todolist.service.impl;
 
 import cn.hutool.core.lang.Validator;
+import cn.hutool.json.JSONObject;
 import cn.hutool.jwt.JWTUtil;
 import com.iflove.todolist.common.constant.Const;
 import com.iflove.todolist.common.constant.RedisKey;
@@ -86,6 +87,7 @@ public class UserServiceImpl implements UserService {
     public void register(UserRegisterReq userRegisterReq) {
         User user = User.builder()
                 .name(userRegisterReq.getUsername())
+                .nickName(userRegisterReq.getNickName())
                 .password(passwordEncoder.encode(userRegisterReq.getPassword()))
                 .sex(userRegisterReq.getSex())
                 .email(userRegisterReq.getEmail())

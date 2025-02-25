@@ -43,7 +43,7 @@ public class UserDao extends ServiceImpl<UserMapper, User> {
         lambdaUpdate()
                 .eq(User::getId, uid)
                 .set(Objects.nonNull(req.getEmail()), User::getEmail, req.getEmail())
-                .set(Objects.nonNull(req.getUsername()), User::getName, req.getUsername())
+                .set(Objects.nonNull(req.getNickName()), User::getNickName, req.getNickName())
                 .set(Objects.nonNull(req.getSignature()), User::getSignature, req.getSignature())
                 .set(Objects.nonNull(req.getPhone()), User::getPhone, req.getPhone())
                 .set(Objects.nonNull(req.getSex()), User::getSex, req.getSex())

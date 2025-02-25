@@ -25,7 +25,7 @@ public class TagsDao extends ServiceImpl<TagsMapper, Tags> {
     public void create(@NotNull List<String> tagNameList, Long uid) {
         baseMapper.insert(tagNameList
                 .stream()
-                .map(name -> Tags.builder().user_id(uid).name(name).build())
+                .map(name -> Tags.builder().userId(uid).name(name).build())
                 .collect(Collectors.toList())
         );
     }
@@ -37,7 +37,7 @@ public class TagsDao extends ServiceImpl<TagsMapper, Tags> {
      */
     public void delete(@NotNull List<String> tagNameList, Long uid) {
         lambdaUpdate()
-                .eq(Tags::getUser_id, uid)
+                .eq(Tags::getUserId, uid)
                 .in(Tags::getName, tagNameList)
                 .remove();
     }
@@ -50,7 +50,7 @@ public class TagsDao extends ServiceImpl<TagsMapper, Tags> {
      */
     public List<Tags> queryByNamesAndId(@NotNull List<String> tagNameList, Long uid) {
         return lambdaQuery()
-                .eq(Tags::getUser_id, uid)
+                .eq(Tags::getUserId, uid)
                 .in(Tags::getName, tagNameList)
                 .list();
     }

@@ -20,6 +20,9 @@ public class UserLoginInfoResp {
     @Schema(description = "用户名")
     private String name;
 
+    @Schema(description = "用户昵称")
+    private String nickName;
+
     @Schema(description = "登录token")
     private String token;
 
