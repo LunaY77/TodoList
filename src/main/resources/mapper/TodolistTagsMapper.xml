@@ -5,8 +5,8 @@
 <mapper namespace="com.iflove.todolist.mapper.TodolistTagsMapper">
 
     <resultMap id="BaseResultMap" type="com.iflove.todolist.domain.entity.TodolistTags">
-        <id property="task_id" column="task_id" jdbcType="BIGINT"/>
-        <id property="tag_id" column="tag_id" jdbcType="BIGINT"/>
+        <id property="taskId" column="task_id" jdbcType="BIGINT"/>
+        <id property="tagId" column="tag_id" jdbcType="BIGINT"/>
     </resultMap>
 
 

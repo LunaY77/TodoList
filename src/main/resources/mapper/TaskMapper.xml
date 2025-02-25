@@ -6,15 +6,15 @@
 
     <resultMap id="BaseResultMap" type="com.iflove.todolist.domain.entity.Task">
         <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="user_id" column="user_id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="star" column="star" jdbcType="INTEGER"/>
-        <result property="due_date" column="due_date" jdbcType="TIMESTAMP"/>
-        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
-        <result property="category_id" column="category_id" jdbcType="BIGINT"/>
+        <result property="dueDate" column="due_date" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
     </resultMap>
 
 
