@@ -55,4 +55,19 @@
         WHERE a.user_id = #{uid}
         GROUP BY a.id;
     </select>
+
+    <select id="getTasksByDueDate" resultType="com.iflove.todolist.domain.vo.response.task.TaskInfoResp">
+        SELECT a.id as id, a.user_id as user_id, a.title as title, a.description as description,
+               a.status as status, a.star as star, a.due_date as due_date, a.create_time as createTime,
+               b.name as category, GROUP_CONCAT(c.name) as tags
+        FROM task a
+        LEFT JOIN category b ON a.category_id = b.id
+        LEFT JOIN (
+            SELECT lt.task_id task_id, t.name name
+            FROM todolist_tags lt
+            LEFT JOIN tags t on lt.tag_id = t.id
+        ) c ON c.task_id = a.id
+        WHERE a.user_id = #{uid} AND DATE(a.due_date) = #{dueDate}
+        GROUP BY a.id;
+    </select>
 </mapper>

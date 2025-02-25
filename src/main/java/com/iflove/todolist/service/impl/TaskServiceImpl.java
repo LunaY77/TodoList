@@ -145,6 +145,20 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskInfoResp> queryAll(Long uid) {
         return taskDao.queryAll(uid);
     }
+
+    /**
+     * 根据任务的截止日期获取任务列表
+     * @param dueDate 截止日期
+     */
+    @Override
+    public List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid) {
+        // 校验日期格式 yyyy-MM-dd
+        String regex = "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
+        if (!dueDate.matches(regex)) {
+            throw new BusinessException(TaskErrorEnum.DATE_FORMAT);
+        }
+        return taskDao.getTasksByDueDate(dueDate, uid);
+    }
 }
 
 

@@ -46,6 +46,10 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
                 .remove();
     }
 
+    /**
+     * 修改任务
+     * @param dto
+     */
     public void modify(TaskInfoDto dto) {
         baseMapper.modify(dto);
     }
@@ -57,5 +61,13 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
      */
     public List<TaskInfoResp> queryAll(Long uid) {
         return this.baseMapper.queryAll(uid);
+    }
+
+    /**
+     * 根据任务的截止日期获取任务列表
+     * @param dueDate 截止日期
+     */
+    public List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid) {
+        return this.baseMapper.getTasksByDueDate(dueDate, uid);
     }
 }

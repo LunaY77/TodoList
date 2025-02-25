@@ -40,6 +40,12 @@ public interface TaskMapper extends BaseMapper<Task> {
      * @return 全部任务信息
      */
     List<TaskInfoResp> queryAll(Long uid);
+
+    /**
+     * 根据任务的截止日期获取任务列表
+     * @param dueDate 截止日期
+     */
+    List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid);
 }
 
 

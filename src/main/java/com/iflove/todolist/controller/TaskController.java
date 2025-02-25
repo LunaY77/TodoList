@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,5 +100,21 @@ public class TaskController {
     })
     public RestBean<List<TaskInfoResp>> queryAll() {
         return RestBean.success(taskService.queryAll(RequestHolder.get().getUid()));
+    }
+
+    /**
+     * 根据任务的截止日期获取任务列表
+     * @param dueDate 截止日期
+     * @return 任务列表
+     */
+    @GetMapping("/byDueDate")
+    @Operation(summary = "根据任务的截止日期获取任务列表",
+            description = "根据任务的截止日期获取任务列表",
+            security = {@SecurityRequirement(name = "Authorization")})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "success"),
+    })
+    public RestBean<List<TaskInfoResp>> getTasksByDueDate(@RequestParam("dueDate") String dueDate) {
+        return RestBean.success(taskService.getTasksByDueDate(dueDate, RequestHolder.get().getUid()));
     }
 }
