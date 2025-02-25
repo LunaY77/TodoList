@@ -1,8 +1,8 @@
 package com.iflove.todolist.service;
 
-import com.iflove.todolist.domain.entity.Task;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -35,5 +35,5 @@ public interface TaskService {
      */
     void modify(ModifyTaskReq req, Long uid);
 
-    List<Task> queryAll(Long uid);
+    List<TaskInfoResp> queryAll(Long uid);
 }

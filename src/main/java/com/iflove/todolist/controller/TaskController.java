@@ -2,10 +2,10 @@ package com.iflove.todolist.controller;
 
 import com.iflove.todolist.common.domain.vo.response.RestBean;
 import com.iflove.todolist.common.utils.RequestHolder;
-import com.iflove.todolist.domain.entity.Task;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.DeleteTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import com.iflove.todolist.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -86,6 +86,10 @@ public class TaskController {
         return RestBean.success();
     }
 
+    /**
+     * 获取全部任务
+     * @return {@link RestBean}
+     */
     @GetMapping("queryAll")
     @Operation(summary = "获取全部任务",
             description = "获取全部任务",
@@ -93,7 +97,7 @@ public class TaskController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "success"),
     })
-    public RestBean<List<Task>> queryAll() {
+    public RestBean<List<TaskInfoResp>> queryAll() {
         return RestBean.success(taskService.queryAll(RequestHolder.get().getUid()));
     }
 }

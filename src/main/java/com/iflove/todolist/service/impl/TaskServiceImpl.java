@@ -12,6 +12,7 @@ import com.iflove.todolist.domain.entity.Tags;
 import com.iflove.todolist.domain.entity.Task;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import com.iflove.todolist.service.TaskService;
 import com.iflove.todolist.service.adapter.TaskAdapter;
 import lombok.RequiredArgsConstructor;
@@ -107,7 +108,7 @@ public class TaskServiceImpl implements TaskService {
      * @param uid 用户 id
      */
     private void checkTaskExists(Long id, Long uid) {
-        Task task = taskDao.queryByIdAndUid(id, uid);
+        Task task = taskDao.getByIdAndUid(id, uid);
         // 任务不存在
         if (Objects.isNull(task)) {
             throw new BusinessException(TaskErrorEnum.TASK_NOT_EXIST);
@@ -141,8 +142,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> queryAll(Long uid) {
-        return taskDao.getByUserId(uid);
+    public List<TaskInfoResp> queryAll(Long uid) {
+        return taskDao.queryAll(uid);
     }
 }
 
