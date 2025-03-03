@@ -1,9 +1,12 @@
 package com.iflove.todolist.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.iflove.todolist.common.exception.BusinessException;
 import com.iflove.todolist.common.exception.CategoryErrorEnum;
+import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.dao.CategoryDao;
 import com.iflove.todolist.domain.entity.Category;
+import com.iflove.todolist.domain.vo.response.category.CategoryInfoResp;
 import com.iflove.todolist.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,6 +49,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(List<String> categoryNameList, Long uid) {
         categoryDao.delete(categoryNameList, uid);
+    }
+
+    @Override
+    public List<CategoryInfoResp> batch() {
+        List<Category> batch = categoryDao.batch(RequestHolder.get().getUid());
+        return batch.stream().map(c -> BeanUtil.copyProperties(c, CategoryInfoResp.class)).toList();
     }
 }
 

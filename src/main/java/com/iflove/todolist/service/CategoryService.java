@@ -3,6 +3,7 @@ package com.iflove.todolist.service;
 import com.iflove.todolist.common.domain.vo.response.RestBean;
 import com.iflove.todolist.domain.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.iflove.todolist.domain.vo.response.category.CategoryInfoResp;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
@@ -29,4 +30,5 @@ public interface CategoryService {
      */
     void delete(List<String> categoryNameList, Long uid);
 
+    List<CategoryInfoResp> batch();
 }

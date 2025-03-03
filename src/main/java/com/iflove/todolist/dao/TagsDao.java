@@ -54,4 +54,11 @@ public class TagsDao extends ServiceImpl<TagsMapper, Tags> {
                 .in(Tags::getName, tagNameList)
                 .list();
     }
+
+    public List<Tags> batch(Long uid) {
+        return lambdaQuery()
+                .select(Tags::getId, Tags::getName)
+                .eq(Tags::getUserId, uid)
+                .list();
+    }
 }

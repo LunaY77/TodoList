@@ -1,5 +1,7 @@
 package com.iflove.todolist.service;
 
+import com.iflove.todolist.domain.vo.response.tag.TagInfoResp;
+
 import java.util.List;
 
 /**
@@ -22,4 +24,6 @@ public interface TagsService {
      * @param uid 用户 id
      */
     void delete(List<String> tagNameList, Long uid);
+
+    List<TagInfoResp> batch();
 }

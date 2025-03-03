@@ -3,6 +3,7 @@ package com.iflove.todolist.dao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.iflove.todolist.domain.dto.TaskInfoDto;
 import com.iflove.todolist.domain.entity.Task;
+import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import com.iflove.todolist.mapper.TaskMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,8 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
      * @param id 任务 id
      * @param uid 用户 id
      */
-    public Task queryByIdAndUid(Long id, Long uid) {
-        return baseMapper.queryByIdAndUid(id, uid);
+    public Task getByIdAndUid(Long id, Long uid) {
+        return baseMapper.getByIdAndUid(id, uid);
     }
 
     /**
@@ -45,13 +46,28 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
                 .remove();
     }
 
+    /**
+     * 修改任务
+     * @param dto
+     */
     public void modify(TaskInfoDto dto) {
         baseMapper.modify(dto);
     }
 
-    public List<Task> getByUserId(Long uid) {
-        return lambdaQuery()
-                .eq(Task::getUserId, uid)
-                .list();
+    /**
+     * 查询某个用户的全部任务信息
+     * @param uid 用户 id
+     * @return 全部任务信息
+     */
+    public List<TaskInfoResp> queryAll(Long uid) {
+        return this.baseMapper.queryAll(uid);
+    }
+
+    /**
+     * 根据任务的截止日期获取任务列表
+     * @param dueDate 截止日期
+     */
+    public List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid) {
+        return this.baseMapper.getTasksByDueDate(dueDate, uid);
     }
 }
