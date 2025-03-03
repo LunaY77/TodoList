@@ -1,6 +1,7 @@
 package com.iflove.todolist.dao;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.domain.entity.Category;
 import com.iflove.todolist.mapper.CategoryMapper;
 import jakarta.validation.constraints.NotNull;
@@ -53,5 +54,12 @@ public class CategoryDao extends ServiceImpl<CategoryMapper, Category> {
                 .eq(Category::getUserId, uid)
                 .in(Category::getName, categoryNameList)
                 .remove();
+    }
+
+    public List<Category> batch(Long uid) {
+        return lambdaQuery()
+                .select(Category::getId, Category::getName)
+                .eq(Category::getUserId, uid)
+                .list();
     }
 }

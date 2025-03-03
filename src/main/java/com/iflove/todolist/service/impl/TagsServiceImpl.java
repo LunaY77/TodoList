@@ -1,9 +1,12 @@
 package com.iflove.todolist.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.iflove.todolist.common.exception.BusinessException;
 import com.iflove.todolist.common.exception.TagsErrorEnum;
+import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.dao.TagsDao;
 import com.iflove.todolist.domain.entity.Tags;
+import com.iflove.todolist.domain.vo.response.tag.TagInfoResp;
 import com.iflove.todolist.service.TagsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,6 +49,12 @@ public class TagsServiceImpl implements TagsService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(List<String> tagNameList, Long uid) {
         tagsDao.delete(tagNameList, uid);
+    }
+
+    @Override
+    public List<TagInfoResp> batch() {
+        List<Tags> lst = tagsDao.batch(RequestHolder.get().getUid());
+        return lst.stream().map(t -> BeanUtil.copyProperties(t, TagInfoResp.class)).toList();
     }
 
 }

@@ -3,6 +3,8 @@ package com.iflove.todolist.controller;
 import com.iflove.todolist.common.domain.vo.response.RestBean;
 import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.domain.vo.request.tags.TagsNameReq;
+import com.iflove.todolist.domain.vo.response.category.CategoryInfoResp;
+import com.iflove.todolist.domain.vo.response.tag.TagInfoResp;
 import com.iflove.todolist.service.TagsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +15,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 苍镜月
@@ -62,6 +66,18 @@ public class TagsController {
     public RestBean<Void> delete(@RequestBody @Valid TagsNameReq req) {
         tagsService.delete(req.getTagNameList(), RequestHolder.get().getUid());
         return RestBean.success();
+    }
+
+    @GetMapping("batch")
+    @Operation(summary = "批量获取",
+            description = "批量获取当前用户所有标签",
+            security = {@SecurityRequirement(name = "Authorization")})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "success"),
+    })
+    public RestBean<List<TagInfoResp>> batch() {
+        List<TagInfoResp> lst = tagsService.batch();
+        return RestBean.success(lst);
     }
 
 //    @PutMapping("modify")
