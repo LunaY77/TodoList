@@ -1,6 +1,9 @@
 package com.iflove.todolist.dao;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.iflove.todolist.common.domain.enums.ActionTypeEnum;
+import com.iflove.todolist.common.domain.enums.MarkTypeEnum;
+import com.iflove.todolist.common.domain.enums.StatusEnum;
 import com.iflove.todolist.domain.dto.TaskInfoDto;
 import com.iflove.todolist.domain.entity.Task;
 import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
@@ -8,6 +11,7 @@ import com.iflove.todolist.mapper.TaskMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 苍镜月
@@ -69,5 +73,45 @@ public class TaskDao extends ServiceImpl<TaskMapper, Task> {
      */
     public List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid) {
         return this.baseMapper.getTasksByDueDate(dueDate, uid);
+    }
+
+    public Task exist(Long uid, Long taskId, MarkTypeEnum marktype) {
+        if (Objects.equals(marktype, MarkTypeEnum.STAR)) {
+            return lambdaQuery()
+                    .select(Task::getId, Task::getUserId, Task::getStar)
+                    .eq(Task::getId, taskId)
+                    .eq(Task::getUserId, uid)
+                    .one();
+        }
+        if (Objects.equals(marktype, MarkTypeEnum.DONE)) {
+            return lambdaQuery()
+                    .select(Task::getId, Task::getUserId, Task::getStatus)
+                    .eq(Task::getId, taskId)
+                    .eq(Task::getUserId, uid)
+                    .one();
+        }
+        return null;
+    }
+
+    public void mark(Long uid, Long taskId, MarkTypeEnum markType, ActionTypeEnum actType) {
+        int status;
+        if (Objects.equals(actType, ActionTypeEnum.MARK)) {
+            status = StatusEnum.ONE.getStatus();
+        } else {
+            status = StatusEnum.ZERO.getStatus();
+        }
+        if (Objects.equals(markType, MarkTypeEnum.STAR)) {
+            lambdaUpdate()
+                    .eq(Task::getId, taskId)
+                    .eq(Task::getUserId, uid)
+                    .set(Task::getStar, status)
+                    .update();
+        } else {
+            lambdaUpdate()
+                    .eq(Task::getId, taskId)
+                    .eq(Task::getUserId, uid)
+                    .set(Task::getStatus, status)
+                    .update();
+        }
     }
 }

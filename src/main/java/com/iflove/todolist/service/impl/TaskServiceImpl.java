@@ -1,7 +1,9 @@
 package com.iflove.todolist.service.impl;
 
+import com.iflove.todolist.common.domain.enums.ActionTypeEnum;
 import com.iflove.todolist.common.exception.BusinessException;
 import com.iflove.todolist.common.exception.TaskErrorEnum;
+import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.dao.CategoryDao;
 import com.iflove.todolist.dao.TagsDao;
 import com.iflove.todolist.dao.TaskDao;
@@ -12,9 +14,12 @@ import com.iflove.todolist.domain.entity.Tags;
 import com.iflove.todolist.domain.entity.Task;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.request.task.TaskActionReq;
 import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import com.iflove.todolist.service.TaskService;
 import com.iflove.todolist.service.adapter.TaskAdapter;
+import com.iflove.todolist.service.strategy.AbstractMarkStrategy;
+import com.iflove.todolist.service.strategy.MarkFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -159,6 +164,21 @@ public class TaskServiceImpl implements TaskService {
         }
         return taskDao.getTasksByDueDate(dueDate, uid);
     }
+
+    @Override
+    public void mark(TaskActionReq req) {
+        Long uid = RequestHolder.get().getUid();
+        Task task = taskDao.getByIdAndUid(req.getTaskId(), uid);
+        if (Objects.isNull(task)) {
+            throw new BusinessException(TaskErrorEnum.TASK_NOT_EXIST);
+        }
+        AbstractMarkStrategy strategy = MarkFactory.getStrategyNoNull(req.getMarkType());
+        switch (ActionTypeEnum.of(req.getActionType())) {
+            case MARK -> strategy.mark(uid, req.getTaskId());
+            case UN_MARK -> strategy.unMark(uid, req.getTaskId());
+        }
+    }
+
 }
 
 

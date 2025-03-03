@@ -3,7 +3,9 @@ package com.iflove.todolist.service;
 import com.iflove.todolist.common.domain.vo.response.RestBean;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.request.task.TaskActionReq;
 import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -46,4 +48,6 @@ public interface TaskService {
      * @param dueDate 截止日期
      */
     List<TaskInfoResp> getTasksByDueDate(String dueDate, Long uid);
+
+    void mark(TaskActionReq req);
 }

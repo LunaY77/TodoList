@@ -5,6 +5,7 @@ import com.iflove.todolist.common.utils.RequestHolder;
 import com.iflove.todolist.domain.vo.request.task.CreateTaskReq;
 import com.iflove.todolist.domain.vo.request.task.DeleteTaskReq;
 import com.iflove.todolist.domain.vo.request.task.ModifyTaskReq;
+import com.iflove.todolist.domain.vo.request.task.TaskActionReq;
 import com.iflove.todolist.domain.vo.response.task.TaskInfoResp;
 import com.iflove.todolist.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -116,5 +117,17 @@ public class TaskController {
     })
     public RestBean<List<TaskInfoResp>> getTasksByDueDate(@RequestParam("dueDate") String dueDate) {
         return RestBean.success(taskService.getTasksByDueDate(dueDate, RequestHolder.get().getUid()));
+    }
+
+    @PutMapping("mark")
+    @Operation(summary = "任务标记",
+            description = "任务标记，标记类型 1 星标 / 2 完成任务，行动类型 1 确认标记 / 2 取消标记",
+            security = {@SecurityRequirement(name = "Authorization")})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "success"),
+    })
+    public RestBean<Void> mark(@RequestBody @Valid TaskActionReq req) {
+        taskService.mark(req);
+        return RestBean.success();
     }
 }
