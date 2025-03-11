@@ -59,7 +59,7 @@ public class TaskServiceImpl implements TaskService {
         taskDao.create(dto);
         // 如果存在标签，创建任务-标签映射关系
         if (Objects.nonNull(tagNameList) && !tagNameList.isEmpty()) {
-            todolistTagsDao.mapTagsToTask(tagNameList, dto.getId());
+            todolistTagsDao.mapTagsToTask(tagNameList, dto.getId(), uid);
         }
     }
 
@@ -142,7 +142,7 @@ public class TaskServiceImpl implements TaskService {
         // 如果需要标签修改，则先删除后添加
         if (Objects.nonNull(tagNameList) && !tagNameList.isEmpty()) {
             todolistTagsDao.deleteRelations(req.getId());
-            todolistTagsDao.mapTagsToTask(tagNameList, req.getId());
+            todolistTagsDao.mapTagsToTask(tagNameList, req.getId(), uid);
         }
     }
 

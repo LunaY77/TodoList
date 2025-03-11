@@ -21,8 +21,8 @@ public class TodolistTagsDao extends ServiceImpl<TodolistTagsMapper, TodolistTag
      * @param tagNameList 标签名列表
      * @param taskId 任务 id
      */
-    public void mapTagsToTask(List<String> tagNameList, Long taskId) {
-        baseMapper.mapTagsToTask(tagNameList, taskId);
+    public void mapTagsToTask(List<String> tagNameList, Long taskId, Long uid) {
+        baseMapper.mapTagsToTask(tagNameList, taskId, uid);
     }
 
     /**

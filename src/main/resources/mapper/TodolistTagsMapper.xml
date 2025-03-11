@@ -15,7 +15,7 @@
             INSERT INTO todolist_tags (task_id, tag_id)
             VALUES
             <foreach collection="tagNameList" item="tagName" separator=",">
-                (#{taskId}, (SELECT id FROM tags WHERE name = #{tagName}))
+                (#{taskId}, (SELECT id FROM tags WHERE name = #{tagName} AND user_id = #{uid}))
             </foreach>
         </if>
     </insert>

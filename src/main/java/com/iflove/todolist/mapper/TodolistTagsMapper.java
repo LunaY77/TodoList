@@ -15,7 +15,8 @@ import java.util.List;
 public interface TodolistTagsMapper extends BaseMapper<TodolistTags> {
 
     void mapTagsToTask(@Param("tagNameList") List<String> tagNameList,
-                       @Param("taskId") Long taskId);
+                       @Param("taskId") Long taskId,
+                       @Param("uid") Long uid);
 }
 
 
