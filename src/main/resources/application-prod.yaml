@@ -1,0 +1,16 @@
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+todolist:
+  mysql:
+    ip: mysql
+    port: 3306
+    db: todolist
+    username: root
+    password: 114514
+  redis:
+    host: redis
+    port: 6379
+    password: 114514 
